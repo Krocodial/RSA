@@ -106,6 +106,9 @@ int main(int argc, char **argv) {
 
 	char line[200];
 
+
+	printf("%d\n", power(855, 2753, 3233));
+
 	//Read in the lookup table that we generated offline
 	FILE *lookuptable;	
 	if((lookuptable = fopen("lookup.txt", "rb")) == NULL) {
