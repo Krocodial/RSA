@@ -2,33 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-//unsigned int lookup[10175];
-//unsigned int lookupdec[10175];
 void Test();
 int mmm(unsigned int x, unsigned int y, unsigned int p);
 /* Iterative Function to calculate (x^y)%p in O(log y) */
-int power(int x, unsigned int y, int p)
-{
-    int res = 1;      // Initialize result
- 
-    x = x % p;  // Update x if it is more than or 
-                // equal to p
- 
-    while (y > 0)
-    {
-        // If y is odd, multiply x with result
-        if (y & 1)
-            res = (res*x) % p;
- 
-        // y must be even now
-        y = y>>1; // y = y/2
-        x = (x*x) % p; 
-	//printf("%d\n", res); 
-    }
-    return res;
-}
-
 
 //This is done, call mmm() on multiply.
 int mme(unsigned int x, unsigned int y, unsigned int p) {
@@ -41,26 +17,13 @@ int mme(unsigned int x, unsigned int y, unsigned int p) {
 
                 y = y >> 1;
                 x = mmm(x, x, p);
-		printf("%d\n", res);
+//		printf("%d\n", res);
         }
 	return res;
 }
 
 int mmm(unsigned int x, unsigned int y, unsigned int p) {
-	unsigned int Z, T, tmp;
-	T = 0;
-	unsigned int R = 65536;
-	int i;
-	/*for(i = 0; i < 16; i++){
-		tmp = (T & 0x01) + (x & (y & 0x01));
-		T = (T + (x & 0x01)*22 + tmp*p)/2;
-		x = x >> 1;
-		printf("%d\n", T);	
-	}
-	if(T >= p)
-		T = T - p;
-	Z = T;*/
-	int result = 0;
+	unsigned int result = 0;
 	x = x % p;
 	while(y > 0) {
 		if(y%2 == 1)
@@ -69,16 +32,9 @@ int mmm(unsigned int x, unsigned int y, unsigned int p) {
 		y /= 2;
 	}
 	return result%p;
-	
-	
-	//printf("\n");
-	//return Z;
-	//printf("%d\n", T);
-	
 }
 
-void encrypt(FILE *input, unsigned int E, unsigned int PQ) {//, int PQ, int E, FILE *outenc) {
-		unsigned char line[200];
+void encrypt(FILE *input, unsigned int E, unsigned int PQ) {
 		FILE *output;
 		output = fopen("encrypted.enc", "w");
 		unsigned int val;
@@ -112,16 +68,9 @@ void decrypt(unsigned int D, unsigned int PQ) {//, int PQ, int D, FILE *outplain
 	FILE *output;
         output = fopen("plaintext.txt", "w");
 	input = fopen("encrypted.enc", "r");
-	unsigned char line[200];
-	unsigned char outline[200];
-        int i;
-                //fgets(line, 200, input);
-        int len;// = strlen(line);
 	unsigned int msb;
 	unsigned int lsb;
 	unsigned int val;
-	unsigned int combval;
-	int j;
 
 	msb = fgetc(input);
 	while(msb != EOF){
@@ -148,8 +97,8 @@ int main(int argc, char **argv) {
 void Test() {
 	int E = 17;
 	int D = 2753;
-        int Q = 53;
-        int P = 61;
+        //int Q = 53;
+        //int P = 61;
         int PQ = 3233;
 
 	FILE *input = fopen("test.txt", "r");

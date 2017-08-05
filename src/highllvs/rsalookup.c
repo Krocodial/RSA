@@ -7,17 +7,11 @@ unsigned int lookup[10175];
 unsigned int lookupdec[10175];
 
 void encrypt(FILE *input) {//, int PQ, int E, FILE *outenc) {
-		unsigned char line[200];
-		unsigned char outline[200];
 		FILE *output;
 		output = fopen("encrypted.enc", "w");
-		int i;
-		//fgets(line, 200, input);
-		int len;// = strlen(line);
 		unsigned int val;
 		unsigned char msb;
 		unsigned char lsb;
-		int j;
 		//for each char, convert to int through the lookup, then write as 2 chars.
 				
 			val = fgetc(input);
@@ -40,19 +34,14 @@ void encrypt(FILE *input) {//, int PQ, int E, FILE *outenc) {
 		fclose(output);
 }
 
-void decrypt(FILE *input) {//, int PQ, int D, FILE *outplain) {	
+void decrypt() {//, int PQ, int D, FILE *outplain) {	
+	FILE *input;
 	FILE *output;
+	input = fopen("encrypted.enc", "r");
         output = fopen("plaintext.txt", "w");
-	unsigned char line[200];
-	unsigned char outline[200];
-        int i;
-                //fgets(line, 200, input);
-        int len;// = strlen(line);
 	unsigned int msb;
 	unsigned int lsb;
 	unsigned int val;
-	unsigned int combval;
-	int j;
 
 	msb = fgetc(input);
 	while(msb != EOF){
@@ -76,14 +65,12 @@ void decrypt(FILE *input) {//, int PQ, int D, FILE *outplain) {
 int main(int argc, char **argv) {
 	//intitialize our values
 	//In an actual rsa alg, use long long data type
-	int E = 17;
-	int D = 2753;
-	int Q = 53;
-	int P = 61;
-	int PQ = 3233;
-
-	char line[200];
-
+	//int E = 17;
+	//int D = 2753;
+	//int Q = 53;
+	//int P = 61;
+	//int PQ = 3233;
+	int i;
 	//Read in the lookup table that we generated offline
 	FILE *lookuptable;	
 	if((lookuptable = fopen("lookup.txt", "rb")) == NULL) {
@@ -91,7 +78,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	for(int i = 0; i < 10175; i++) {
+	for(i = 0; i < 10175; i++) {
 		fscanf(lookuptable, "%d", &lookup[i]);
 	}
 	
@@ -103,13 +90,21 @@ int main(int argc, char **argv) {
                 return 1;
         }
 
-        for(int i = 0; i < 10175; i++) {
+        for(i = 0; i < 10175; i++) {
                 fscanf(lookuptabledec, "%d", &lookupdec[i]);
         }
 	//open our plaintext file and create our newly encrypted file		
 	FILE *inplain;
-	FILE *output;
-	if(argc == 3) {
+	
+	
+	if((inplain = fopen("file.txt", "r")) == NULL) {
+		printf("file.txt not found");
+		return 1;
+	}
+	encrypt(inplain);
+	decrypt();
+
+	/*if(argc == 3) {
 		if((inplain = fopen(argv[2], "r")) == NULL) {
                 	printf("failed, file does not exist\n");
                 	return 1;
@@ -123,16 +118,9 @@ int main(int argc, char **argv) {
 			printf("Usage: ./executable encrypt/decrypt file.ext\n");
 			return 1;
 	}
+	*/
 	
 	
-	unsigned char a = 'a';
-	unsigned int b = a;
-	unsigned int c = lookup[b];
-	unsigned char d = c;
-	unsigned int e = c;
-	unsigned int f = lookupdec[e];
-	unsigned char g = f;
-
 	
 	return 0;
 
