@@ -1,0 +1,83 @@
+.com
+
+Search
+ Search
+Create account
+Page
+Discussion
+View
+Edit
+History
+fgetc, getc
+  C  File input/output 
+Defined in header <stdio.h>
+int fgetc( FILE *stream );
+int getc( FILE *stream );
+Reads the next character from the given input stream. getc() may be implemented as a macro.
+Parameters
+stream	-	to read the character from
+Return value
+The obtained character on success or EOF on failure.
+If the failure has been caused by end-of-file condition, additionally sets the eof indicator (see feof()) on stream. If the failure has been caused by some other error, sets the error indicator (see ferror()) on stream.
+Example
+Run this code
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main(void)
+{
+    FILE* fp = fopen("test.txt", "r");
+    if(!fp) {
+        perror("File opening failed");
+        return EXIT_FAILURE;
+    }
+ 
+    int c; // note: int, not char, required to handle EOF
+    while ((c = fgetc(fp)) != EOF) { // standard C I/O file reading loop
+       putchar(c);
+    }
+ 
+    if (ferror(fp))
+        puts("I/O error when reading");
+    else if (feof(fp))
+        puts("End of file reached successfully");
+ 
+    fclose(fp);
+}
+
+References
+C11 standard (ISO/IEC 9899:2011):
+7.21.7.1 The fgetc function (p: 330)
+7.21.7.5 The getc function (p: 332)
+C99 standard (ISO/IEC 9899:1999):
+7.19.7.1 The fgetc function (p: 296)
+7.19.7.5 The getc function (p: 297-298)
+C89/C90 standard (ISO/IEC 9899:1990):
+4.9.7.1 The fgetc function
+4.9.7.5 The getc function
+See also
+gets
+gets_s
+  
+(until C11)
+(since C11)
+ 
+reads a character string from stdin 
+(function)
+fputc
+putc
+ 
+writes a character to a file stream 
+(function)
+ungetc
+ 
+puts a character back into a file stream 
+(function)
+C++ documentation for fgetc, getc
+Support usRecent changesFAQOffline version
+What links hereRelated changesUpload fileSpecial pagesPrintable versionPermanent linkPage information
+In other languages
+العربيةČeskyDeutschEspañolFrançaisItaliano日本語한국어PolskiPortuguêsРусскийTürkçe中文
+This page was last modified on 12 June 2015, at 08:55.
+Privacy policy About cppreference.com Disclaimers
+Powered by MediaWiki  Powered by GeSHi  Hosted by Tiger Technologies
