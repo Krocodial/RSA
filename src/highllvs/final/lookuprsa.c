@@ -2,40 +2,50 @@
 #include <stdlib.h>
 
 //table of powers is 64 long
-int tableofpowers(int m, int p, int e, int table[]){
+int tableofpowers(long long m, long long p, long long e, long long table[]){
 	
 	int i;
 	table[0] = 1;
-	table[1] = p;
+	table[1] = p%m;
 
 	for(i = 2; i < 65; i++) {
 		table[i] = (table[i-1]*table[i-1])%m; 
 	}
 
-	//for(i=0; i < 65; i++) {
-	//	printf("%d, ", table[i]);
-	//}
-
 }
 
-int encrypt(int table[], int exponent, int m) {
+long long encrypt(long long table[], long long exponent, long long m) {
 	
 	int i;
-	int result = 1;
-	for(i = 1; i < 64; i++) {
+	long long result = 1;
+	for(i = 1; i < 512; i++) {
 		if(exponent & 0x01) {
 			result = (result*table[i])%m;
-			printf("%d ---> %d\n", i, result);
 		}
 		exponent = exponent >> 1;	
 	}
 	return result;
 }
 
+
+
 int main() {
-unsigned int table[65];
-tableofpowers(3233, 855, 2753, table);
-unsigned int C = encrypt(table, 2753, 3233);
-printf("Encrypted: %d\n", C);
-return 0;
+
+	long long E = 17;
+	long long D = 2753;
+	long long M = 3233;
+	long long T = 123;
+	long long table[65];
+
+	printf("Initial: %llu\n", T);
+
+	tableofpowers(M, T, E, table);
+	long long C = encrypt(table, E, M);
+	printf("Encrypted: %llu\n", C);
+
+	tableofpowers(M, C, D, table);
+	long long P = encrypt(table, D, M);
+	printf("Decrypted: %llu\n", P);
+
+	return 0;
 }
