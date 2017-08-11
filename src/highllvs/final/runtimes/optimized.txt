@@ -1,0 +1,33 @@
+Runtimes for the first iteration of optimizations+++++++++++++++++++++++
+
+[lkraak@ugls27 runtimes]$ perf stat -r 100 qemu-arm lookup.exe
+
+ Performance counter stats for 'qemu-arm lookup.exe' (100 runs):
+
+          4.555343      task-clock (msec)         #    0.865 CPUs utilized            ( +-  2.34% )
+                 3      context-switches          #    0.661 K/sec                    ( +-  0.33% )
+                 1      cpu-migrations            #    0.261 K/sec                    ( +-  3.91% )
+               965      page-faults               #    0.212 M/sec                    ( +-  0.17% )
+        13,378,999      cycles                    #    2.937 GHz                      ( +-  0.24% )
+        20,768,262      instructions              #    1.55  insn per cycle           ( +-  0.09% )
+         4,119,193      branches                  #  904.255 M/sec                    ( +-  0.08% )
+            86,568      branch-misses             #    2.10% of all branches          ( +-  0.17% )
+
+       0.005263384 seconds time elapsed                                          ( +-  2.19% )
+
+
+[lkraak@ugls27 runtimes]$ perf stat -r 100 qemu-arm mmm.exe
+
+ Performance counter stats for 'qemu-arm mmm.exe' (100 runs):
+
+          3.855983      task-clock (msec)         #    0.849 CPUs utilized            ( +-  0.40% )
+                 3      context-switches          #    0.781 K/sec                    ( +-  0.33% )
+                 1      cpu-migrations            #    0.342 K/sec                    ( +-  4.42% )
+               965      page-faults               #    0.250 M/sec                    ( +-  0.18% )
+        12,619,021      cycles                    #    3.273 GHz                      ( +-  0.32% )
+        18,975,034      instructions              #    1.50  insn per cycle           ( +-  0.11% )
+         3,776,212      branches                  #  979.312 M/sec                    ( +-  0.10% )
+            78,472      branch-misses             #    2.08% of all branches          ( +-  0.18% )
+
+       0.004539880 seconds time elapsed                                          ( +-  0.38% )
+
