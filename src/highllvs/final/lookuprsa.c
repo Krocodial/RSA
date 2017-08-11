@@ -11,7 +11,6 @@ int tableofpowers(long long m, long long p, long long e, long long table[]){
 	for(i = 2; i < 65; i++) {
 		table[i] = (table[i-1]*table[i-1])%m; 
 	}
-
 }
 
 long long encrypt(long long table[], long long exponent, long long m) {
