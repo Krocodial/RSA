@@ -38,9 +38,9 @@ unsigned int M = 3233;
 int C = mme(T, E, M);
 int P = mme(C, D, M);
 
-printf("Initial: %d\n", T);
-printf("Encrypted: %d\n", C);
-printf("Decrypted: %d\n", P);
+//printf("Initial: %d\n", T);
+//printf("Encrypted: %d\n", C);
+//printf("Decrypted: %d\n", P);
 
 return 0;
 }
