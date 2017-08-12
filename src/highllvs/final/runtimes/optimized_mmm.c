@@ -8,7 +8,7 @@ int mmm(register unsigned int x, register unsigned int y, register unsigned int 
 	while(y > 0) {
 		if(y & 1)
 			result = (result + x) % p;
-		x = (x*2) % p;
+		x = (x<<1) % p;
 		y = y >> 1;
 	}
 	return result%p;
@@ -18,7 +18,7 @@ int mme(register unsigned int x, register unsigned int y, register unsigned int 
 	
 	register unsigned int result = 1;
 	x = x % p;
-	while(y != 0) {
+	while(y) {
 		if(y & 1)
 			result = mmm(result, x, p);
 		y = y >> 1;
