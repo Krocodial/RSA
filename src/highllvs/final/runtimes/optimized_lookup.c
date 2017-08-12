@@ -2,21 +2,33 @@
 #include <stdlib.h>
 
 //table of powers is 64 long
+int determinelength(register long long e) {
+	
+	register int num;
+	while(e) {
+		num++;
+		e = e >> 1;
+	}
+	return num;
+}
+
+
+
 void tableofpowers(register long long m, long long p, long long e, register long long table[]){
 	
 	register int i;
 	table[0] = 1;
-	table[1] = p%m;
-
+	table[1] = p;
+		
 	//Software pipelining will not work here
-	register int last = table[2];
-	for(i = 2; i < 65; i++) {
-		last = table[i-1];
-		table[i] = (last*last)%m; 
+	register int val;
+	for(i = 2; i <= e; i++) {
+		val = table[i-1];
+		table[i] = (val*val)%m; 
 	}
 }
 
-long long encrypt(long long table[], register long long exponent, register long long m) {
+long long crypt(long long table[], register long long exponent, register long long m) {
 	
 	register int i;
 	//register usage for critical variables
@@ -33,7 +45,6 @@ long long encrypt(long long table[], register long long exponent, register long 
                         result = (result*table[i+1])%m;
                 }
                 exponent = exponent >> 1;
-
 	}
 	return result;
 }
@@ -46,15 +57,19 @@ int main() {
 	long long E = 17;
 	long long D = 2753;
 	long long M = 3233;
-	long long table[65];
+	long long table[512];
+
+	//printf("%d\n", determinelength(E));
 
 	printf("Initial: %llu\n", T);
-
-	tableofpowers(M, T, E, table);
-	long long C = encrypt(table, E, M);
-
-	tableofpowers(M, C, D, table);
-	long long P = encrypt(table, D, M);
+	
+	int size = determinelength(E);
+	tableofpowers(M, T, size, table);
+	long long C = crypt(table, E, M);
+	
+	size = determinelength(D);
+	tableofpowers(M, C, size, table);
+	long long P = crypt(table, D, M);
 
 	printf("Encrypted: %llu\n", C);
 	printf("Decrypted: %llu\n", P);
