@@ -61,7 +61,7 @@ int main() {
 
 	//printf("%d\n", determinelength(E));
 
-	printf("Initial: %llu\n", T);
+	//printf("Initial: %llu\n", T);
 	
 	int size = determinelength(E);
 	tableofpowers(M, T, size, table);
@@ -71,8 +71,8 @@ int main() {
 	tableofpowers(M, C, size, table);
 	long long P = crypt(table, D, M);
 
-	printf("Encrypted: %llu\n", C);
-	printf("Decrypted: %llu\n", P);
+	//printf("Encrypted: %llu\n", C);
+	//printf("Decrypted: %llu\n", P);
 
 	return 0;
 }
