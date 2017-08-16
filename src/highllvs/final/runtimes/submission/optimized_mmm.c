@@ -5,19 +5,19 @@
 -Title: RSA cryptography Montgomery modular multiplication
 */
 
-int determine_length(register int e) {
+int determine_length(register int m) {
 	register int result = 0;
-	while(e){
+	while(m){
 		result = result + 1;
-		e = e >> 1;
+		m = m >> 1;
 	}
 	return result;
 }
 
-int mmm(unsigned int x, unsigned int y, unsigned int m) {
+int mmm(unsigned int x, unsigned int y, unsigned int m, int i) {
        	register int n; 
 	register int t = 0;
-	register int i = determine_length(m);	
+	//register int i = determine_length(m);	
 
 	for(; i != 0; i--, x >>= 1) {	
 		n = (t&1) + (x&(y&1));
@@ -32,16 +32,16 @@ int mmm(unsigned int x, unsigned int y, unsigned int m) {
 int mme(unsigned int x, unsigned int e, unsigned int m) {
 
 	int i = determine_length(m);
-	i = (1 << (i*2))%m;
-	unsigned int z = mmm(1, i, m);
-	unsigned int p = mmm(x, i, m);
+	int sf = (1 << (i*2))%m;
+	unsigned int z = mmm(1, sf, m, i);
+	unsigned int p = mmm(x, sf, m, i);
 	while(e) {
 		if(e & 0x1)
-			z = mmm(z, p, m);
-		p = mmm(p, p, m);
+			z = mmm(z, p, m, i);
+		p = mmm(p, p, m, i);
 		e = e >> 1;
 	}
-	z = mmm(1, z, m);
+	z = mmm(1, z, m, i);
 	return z;
 }
 
@@ -52,6 +52,8 @@ int main() {
 	int D = 2753;
 	int M = 3233;
 	int C, P;
+
+	
 
 	C = mme(T, E, M);
 	D = mme(C, D, M);
