@@ -18,3 +18,4 @@ mmmstats:
 assembly:
 	arm-linux-gcc -static -S -o lookup.s optimized_lookup.c
 	arm-linux-gcc -static -S -o mmm.s optimized_mmm.c
+	arm-linux-gcc -static -S -o mmmUnop.s unoptimized_mmm.c
