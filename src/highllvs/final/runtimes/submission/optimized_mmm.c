@@ -14,11 +14,9 @@ int determine_length(register int m) {
 	return result;
 }
 
-int mmm(unsigned int x, unsigned int y, unsigned int m, int i) {
+int mmm(unsigned int x, unsigned int y, unsigned int m, register int i) {
        	register int n; 
 	register int t = 0;
-	//register int i = determine_length(m);	
-
 	for(; i != 0; i--, x >>= 1) {	
 		n = (t&1) + (x&(y&1));
 		t = (t + (x&1)*y + n*m)>>1;
@@ -58,8 +56,8 @@ int main() {
 	C = mme(T, E, M);
 	D = mme(C, D, M);
 
-	printf("Initial: %d\n", T);
-	printf("Encrypted: %d\n", C);
-	printf("Decryption: %d\n", D);
+	//printf("Initial: %d\n", T);
+	//printf("Encrypted: %d\n", C);
+	//printf("Decryption: %d\n", D);
 	return 0;
 }

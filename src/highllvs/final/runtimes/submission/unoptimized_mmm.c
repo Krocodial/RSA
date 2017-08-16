@@ -23,11 +23,11 @@ unsigned int D = 2753;
 unsigned int T = 123;
 unsigned int M = 3233;
 
-printf("Initial: %d\n", T);
+//printf("Initial: %d\n", T);
 int C = mme(T, E, M);
-printf("Encrypted: %d\n", C);
+//printf("Encrypted: %d\n", C);
 int P = mme(C, D, M);
-printf("Decrypted: %d\n", P);
+//printf("Decrypted: %d\n", P);
 
 return 0;
 }

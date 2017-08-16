@@ -36,15 +36,15 @@ int main() {
 	long long T = 123;
 	long long table[65];
 
-	printf("Initial: %llu\n", T);
+	//printf("Initial: %llu\n", T);
 
 	tableofpowers(M, T, E, table);
 	long long C = encrypt(table, E, M);
-	printf("Encrypted: %llu\n", C);
+	//printf("Encrypted: %llu\n", C);
 
 	tableofpowers(M, C, D, table);
 	long long P = encrypt(table, D, M);
-	printf("Decrypted: %llu\n", P);
+	//printf("Decrypted: %llu\n", P);
 
 	return 0;
 }

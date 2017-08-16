@@ -1,8 +1,8 @@
 all:
-	arm-linux-gcc -static -pg -o lookup.exe optimized_lookup.c
-	arm-linux-gcc -static -pg -o mmm.exe optimized_mmm.c
-	arm-linux-gcc -static -pg -o unoplookup.exe unoptimized_lookup.c
-	arm-linux-gcc -static -pg -o unopmmm.exe unoptimized_mmm.c
+	arm-linux-gcc -static -o lookup.exe optimized_lookup.c
+	arm-linux-gcc -static -o mmm.exe optimized_mmm.c
+	arm-linux-gcc -static -o unoplookup.exe unoptimized_lookup.c
+	arm-linux-gcc -static -o unopmmm.exe unoptimized_mmm.c
 	
 clean:
 	rm *.exe
